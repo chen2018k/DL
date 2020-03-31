@@ -78,13 +78,18 @@ def train(features, targets, epochs, learnrate, graph_lines=False):
             output = output_formula(x, weights, bias)
             # 计算其CE误差
             error = error_formula(y, output)
-            # 获得
+            # 对所有数据点做一次权重更新
             weights, bias = update_weights(x, y, weights, bias, learnrate)
 
+
         # Printing out the log-loss error on the training set
+        # 输出单个感知器的结果
         out = output_formula(features, weights, bias)
+        # 计算误差
         loss = np.mean(error_formula(targets, out))
         errors.append(loss)
+
+        # 如果epochs为100的话，则每10次执行一次操作
         if e % (epochs / 10) == 0:
             print("\n========== Epoch", e, "==========")
             if last_loss and last_loss < loss:
@@ -96,6 +101,8 @@ def train(features, targets, epochs, learnrate, graph_lines=False):
             accuracy = np.mean(predictions == targets)
             print("Accuracy: ", accuracy)
         if graph_lines and e % (epochs / 100) == 0:
+
+            # display todo
             display(-weights[0] / weights[1], -bias / weights[1])
 
     # Plotting the solution boundary
