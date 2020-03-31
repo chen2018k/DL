@@ -155,3 +155,13 @@ def train_nn(features, targets, epochs, learnrate):
 
 
 weights = train_nn(features, targets, epochs, learnrate)
+
+test_out = sigmoid(np.dot(features_test, weights))
+
+# 返回true、false的 ndarray
+predictions = test_out > 0.5
+
+# 计算符合条件的个数并除以总数
+accuracy = np.mean(predictions == targets_test)
+
+print("Prediction accuracy: {:.3f}".format(accuracy))
